@@ -7,6 +7,7 @@ interface IndexProps {
 }
 
 interface IndexState {
+  fileSpread: boolean
 }
 
 /**
@@ -22,6 +23,17 @@ export default PageInit(class extends React.Component<IndexProps, IndexState> {
    */
   constructor(props: IndexProps) {
     super(props)
+
+    this.state = {
+      fileSpread: false,
+    }
+  }
+
+  onToggle(e) {
+    e.preventDefault()
+    this.setState({
+      fileSpread: !this.state.fileSpread,
+    })
   }
 
   /**
@@ -29,6 +41,8 @@ export default PageInit(class extends React.Component<IndexProps, IndexState> {
    * @returns {JSX.Element}
    */
   render() {
+    const {fileSpread} = this.state
+
     return (
       <Layout>
         <Head>
@@ -40,13 +54,14 @@ export default PageInit(class extends React.Component<IndexProps, IndexState> {
               <a href="/">hckrmoon/</a>
             </h1>
             <a
-              className="single-column"
+              className={fileSpread ? '' : 'single-column'}
               id="toggle"
               title="click to toggle the view"
+              onClick={e => this.onToggle(e)}
             />
           </header>
           <div className="Files">
-            <ul id="files">
+            <ul id="files" className={fileSpread ? 'single-column' : ''}>
               <li>
                 <a href="/dir" title="dir/" className="dir">
                   dir/
