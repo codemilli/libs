@@ -14,12 +14,6 @@ app.prepare()
     .then(() => {
         const server = express()
 
-        server.get('/:username', (req, res) => {
-            const {surl} = req.params
-            const params = { surl }
-
-            return app.render(req, res, '/user', params)
-        })
 
         server.get('*', (req, res) => handle(req, res))
 
