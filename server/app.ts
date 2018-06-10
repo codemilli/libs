@@ -14,7 +14,6 @@ app.prepare()
     .then(() => {
         const server = express()
 
-
         server.get('*', (req, res) => handle(req, res))
 
         server.listen(port, (err: any) => {

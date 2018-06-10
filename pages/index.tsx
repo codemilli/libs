@@ -8,6 +8,7 @@ interface IndexProps {
 
 interface IndexState {
   fileSpread: boolean
+  username: string
 }
 
 /**
@@ -26,6 +27,7 @@ export default PageInit(class extends React.Component<IndexProps, IndexState> {
 
     this.state = {
       fileSpread: false,
+      username: '',
     }
   }
 
@@ -41,7 +43,7 @@ export default PageInit(class extends React.Component<IndexProps, IndexState> {
    * @returns {JSX.Element}
    */
   render() {
-    const {fileSpread} = this.state
+    const {fileSpread, username} = this.state
 
     return (
       <Layout>
@@ -51,7 +53,7 @@ export default PageInit(class extends React.Component<IndexProps, IndexState> {
           <header className="Header">
             <h1>
               <i>Index of&nbsp;</i>
-              <a href="/">hckrmoon/</a>
+              <a href="/">{username}/</a>
             </h1>
             <a
               className={fileSpread ? '' : 'single-column'}
