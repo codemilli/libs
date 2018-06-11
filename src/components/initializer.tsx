@@ -12,9 +12,16 @@ export const PageInit = (UI: ComponentClass | SFC) => {
 
     static async getInitialProps({req}: IGetInitialProps) {
       const isServer = !!req
+      let user = ''
+
+      if (req) {
+        const {username} = req.params
+        user = username
+      }
 
       return {
         isServer,
+        username: user,
         API_URL: isServer ? process.env.API_URL : '',
         WEB_URL: isServer ? process.env.WEB_URL : '',
       }

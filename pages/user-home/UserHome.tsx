@@ -1,9 +1,10 @@
 import React from 'react'
-import {Layout} from "../../src/components/layout/Layout";
 import Head from "next/head";
+import {Layout} from "../../src/components/layout/Layout";
 import {PageInit} from "../../src/components/initializer";
 
 interface UserHomeProps {
+  username: string
 }
 
 interface UserHomeState {
@@ -27,7 +28,7 @@ export const UserHome = PageInit(class extends React.Component<UserHomeProps, Us
 
     this.state = {
       fileSpread: false,
-      username: '',
+      username: props.username || '',
     }
   }
 
