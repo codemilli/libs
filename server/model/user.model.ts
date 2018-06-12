@@ -1,5 +1,6 @@
 import * as bcrypt from 'bcrypt'
 import {Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
+import {Entry} from "./entity.model";
 
 export enum UserAccountType {
   LOCAL = 'LOCAL',
@@ -33,10 +34,10 @@ export class User {
   account_type: UserAccountType
 
   @OneToMany(
-    type => Entity,
-    entity => entity.user
+    type => Entry,
+    entry => entry.user
   )
-  links: Entity[]
+  entries: Entry[]
 
   @CreateDateColumn()
   created_at: string
