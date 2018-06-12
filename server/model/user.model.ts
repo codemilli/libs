@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcrypt'
 import {Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
-import {Entry} from "./entity.model";
+import {Entry} from "./entry.model";
 
 export enum UserAccountType {
   LOCAL = 'LOCAL',
