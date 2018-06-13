@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany} from 'typeorm'
+import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne} from 'typeorm'
 import {User} from "./user.model";
 
 export enum EntryType {
@@ -10,6 +10,7 @@ export enum FileFormatType {
   DIRECTORY = 'DIRECTORY',
   TXT = 'TXT',
   PNG = 'PNG',
+  JPG = 'JPG',
   ETC = 'ETC',
 }
 
@@ -20,13 +21,13 @@ export class Entry {
 
   @Column({
     type: 'varchar',
-    default: EntryType.FILE
+    default: EntryType.FILE,
   })
   type: EntryType
 
   @Column({
     type: 'varchar',
-    default: FileFormatType.ETC
+    default: FileFormatType.ETC,
   })
   file_format: FileFormatType
 
@@ -49,7 +50,7 @@ export class Entry {
 
   @Column({
     type: 'datetime',
-    nullable: true
+    nullable: true,
   })
   deleted_at: string
 }

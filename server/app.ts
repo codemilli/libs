@@ -14,7 +14,10 @@ app.prepare()
   .then(() => {
     const server = express()
 
-    server.get('/:username', (req, res) => {
+    server.get('/:username', (req, res, next) => {
+      if (req.params.username !== 'hckrmoon') {
+        return next()
+      }
       return app.render(req, res, '/user-home')
     })
 

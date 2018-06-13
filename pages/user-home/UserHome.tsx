@@ -13,13 +13,13 @@ interface UserHomeState {
 }
 
 /**
- * define UserHome class inherits React.Component
+ * define JoinPage class inherits React.Component
  * @React View Component
  */
 export const UserHome = PageInit(class extends React.Component<UserHomeProps, UserHomeState> {
 
   /**
-   * UserHome class constructor method
+   * JoinPage class constructor method
    * @constructs
    * @param {UserHomeProps} props
    */
@@ -40,7 +40,7 @@ export const UserHome = PageInit(class extends React.Component<UserHomeProps, Us
   }
 
   /**
-   * UserHome React Component render method
+   * JoinPage React Component render method
    * @returns {JSX.Element}
    */
   render() {
