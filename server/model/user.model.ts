@@ -34,7 +34,7 @@ export class User {
   account_type: UserAccountType
 
   @OneToMany(
-    type => Entry,
+    () => Entry,
     entry => entry.user
   )
   entries: Entry[]

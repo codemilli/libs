@@ -36,7 +36,7 @@ export class Entry {
   level: number
 
   @ManyToOne(
-    type => User,
+    () => User,
     user => user.entries
   )
   user: User
