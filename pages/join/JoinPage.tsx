@@ -1,5 +1,5 @@
-import React from 'react'
-import Head from "next/head";
+import React, {FormEvent} from 'react'
+import axios from 'axios'
 import {Layout} from "../../src/components/layout/Layout";
 import {PageInit} from "../../src/components/initializer";
 
@@ -23,8 +23,44 @@ export const JoinPage = PageInit(class extends React.Component<JoinPageProps, Jo
   constructor(props: JoinPageProps) {
     super(props)
 
+    this.onSubmit = this.onSubmit.bind(this)
+
     this.state = {
     }
+  }
+
+  async onSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+
+    const {email, username, passwd1, passwd2} = this.refs
+    const emailValue = ((email as HTMLInputElement).value || '').trim()
+    const usernameValue = ((username as HTMLInputElement).value || '').trim()
+    const passwd1Value = ((passwd1 as HTMLInputElement).value || '').trim()
+    const passwd2Value = ((passwd2 as HTMLInputElement).value || '').trim()
+
+    if (!emailValue) {
+      return alert('Fill email')
+    }
+
+    if (!usernameValue) {
+      return alert('Fill username')
+    }
+
+    if (!passwd1Value) {
+      return alert('Fill password')
+    }
+
+    if (passwd1Value !== passwd2Value) {
+      return alert('Correct your password')
+    }
+
+    const response = await axios.post('/api/user/join', {
+      email: emailValue,
+      username: usernameValue,
+      passwd: passwd1Value,
+    })
+
+    console.log('response : ', response)
   }
 
   /**
@@ -32,16 +68,15 @@ export const JoinPage = PageInit(class extends React.Component<JoinPageProps, Jo
    * @returns {JSX.Element}
    */
   render() {
-    const {} = this.state
-
     return (
       <Layout>
         <div className="JoinPage">
-          <form>
-            <input type="email"/>
-            <input type="password"/>
-            <input type="password"/>
-            <button>Join</button>
+          <form onSubmit={this.onSubmit}>
+            <input ref="email" type="email" required />
+            <input ref="username" type="text" required />
+            <input ref="passwd1" type="password" required />
+            <input ref="passwd2" type="password" required />
+            <button type="submit">Join</button>
           </form>
         </div>
         <style jsx>{`
@@ -64,6 +99,9 @@ export const JoinPage = PageInit(class extends React.Component<JoinPageProps, Jo
                 border: 1px solid #dddd;
                 border-radius: 4px;
                 margin-bottom: 22px;
+              }
+              button[type='submit'] {
+                font-size: 17px;
               }
             }
           }
