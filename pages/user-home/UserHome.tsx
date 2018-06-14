@@ -4,6 +4,7 @@ import axios from 'axios'
 import {Layout} from "../../src/components/layout/Layout";
 import {PageInit} from "../../src/components/initializer";
 import {EntryType} from "../../shared/interfaces/Entry";
+import {Header} from "../../src/components/Header/Header";
 
 interface UserHomeProps {
   username: string
@@ -43,7 +44,7 @@ export const UserHome = PageInit(class extends React.Component<UserHomeProps, Us
     })
   }
 
-  async onToggle(e) {
+  onToggle(e) {
     e.preventDefault()
     this.setState({
       fileSpread: !this.state.fileSpread,
@@ -61,42 +62,37 @@ export const UserHome = PageInit(class extends React.Component<UserHomeProps, Us
       <Layout>
         <Head>
         </Head>
-        <main className="Home">
-          <header className="Header">
-            <h1>
-              <i>Index of&nbsp;</i>
-              <a href="/">{username}/</a>
-            </h1>
-            <a
-              className={fileSpread ? '' : 'single-column'}
-              id="toggle"
-              title="click to toggle the view"
-              onClick={e => this.onToggle(e)}
+        <div className="Main">
+          <main className="Home">
+            <Header
+              username={username}
+              fileSpread={fileSpread}
+              onToggle={(e) => this.onToggle(e)}
             />
-          </header>
-          <div className="Files">
-            <ul id="files" className={fileSpread ? 'single-column' : ''}>
-              {entries.map((entry) => {
-                const isDir = entry.type === EntryType.DIRECTORY
-                return (
-                  <li key={entry.id}>
-                    <a href="" className={isDir ? 'dir' : 'file'}>
-                      {entry.name + (isDir ? '/' : '')}
-                    </a>
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-          <div className="Preview">
+            <div className="Files">
+              <ul id="files" className={fileSpread ? 'single-column' : ''}>
+                {entries.map((entry) => {
+                  const isDir = entry.type === EntryType.DIRECTORY
+                  return (
+                    <li key={entry.id}>
+                      <a href="" className={isDir ? 'dir' : 'file'}>
+                        {entry.name + (isDir ? '/' : '')}
+                      </a>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+            <div className="Preview">
 
-          </div>
-        </main>
-        <style jsx>{`
-        .Files {
-          max-width: 690px;
-        }
-      `}</style>
+            </div>
+          </main>
+          <style jsx>{`
+            .Files {
+              max-width: 690px;
+            }
+          `}</style>
+        </div>
       </Layout>
     )
   }

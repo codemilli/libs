@@ -8,10 +8,6 @@ body {
 /*main {*/
   /*max-width: 920px;*/
 /*}*/
-header {
-  display: flex;
-  justify-content: space-between;
-}
 #toggle {
   display: none;
   cursor: pointer;
