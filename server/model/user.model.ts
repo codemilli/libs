@@ -66,15 +66,14 @@ export class User {
     })
   }
 
-  static async getSalt(): Promise<string> {
+  static async getSalt(): Promise<any> {
     return new Promise((resolve, reject) => {
-      bcrypt.genSalt(10, (err, salt = '') => {
+      bcrypt.genSalt(10, (err, salt: string) => {
         if (err) {
-          return reject(err)
+          return reject(err.message)
         }
 
-        resolve(salt)
-        return salt
+        return resolve(salt)
       })
     })
   }

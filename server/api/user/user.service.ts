@@ -1,4 +1,6 @@
 import {User, UserAccountType} from "../../model/user.model";
+import {getRepository} from "typeorm";
+import {Repository} from "typeorm/repository/Repository";
 
 export interface CreateUserDTO {
   email: string
@@ -7,7 +9,11 @@ export interface CreateUserDTO {
 }
 
 export const UserService = new (class {
-  constructor() {}
+  userRepository: Repository<User>
+
+  constructor() {
+    this.userRepository = getRepository(User)
+  }
 
   async createUser(user: CreateUserDTO) {
     const newUser = new User()
@@ -18,6 +24,6 @@ export const UserService = new (class {
     newUser.salt = await User.getSalt()
     newUser.password = await User.hashing(user.password, newUser.salt)
 
-    newUser.save
+    return await this.userRepository.save(newUser)
   }
 })
