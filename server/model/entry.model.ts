@@ -1,20 +1,6 @@
 import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne} from 'typeorm'
 import {User} from "./user.model";
-
-export enum EntryType {
-  FILE = 'FILE',
-  DIRECTORY = 'DIRECTORY',
-}
-
-export enum FileFormatType {
-  DIRECTORY = 'DIRECTORY',
-  TXT = 'TXT',
-  PNG = 'PNG',
-  JPG = 'JPG',
-  GIF = 'GIF',
-  LIBSCRIPT = 'LIBSCRIPT',
-  ETC = 'ETC',
-}
+import {EntryType, FileFormatType} from "../../shared/interfaces/Entry";
 
 @Entity('entry')
 export class Entry {
@@ -46,7 +32,9 @@ export class Entry {
   })
   level: number
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   source: string
 
   @ManyToOne(

@@ -1,12 +1,16 @@
 import {getRepository} from "typeorm";
 import {Repository} from "typeorm/repository/Repository";
-import {Entry, EntryType, FileFormatType} from "../../model/entry.model";
+import {Entry} from "../../model/entry.model";
 import {UserService} from "../user/user.service";
+import {EntryType, FileFormatType} from "../../../shared/interfaces/Entry";
 
 export interface CreateEntryDTO {
+  user_id: number
   name: string
+  level: number
   type: EntryType
   format: FileFormatType
+  file?: File
 }
 
 export interface EntryListOptions {
@@ -33,9 +37,13 @@ export const EntryService = new (class {
   async createEntry(entry: CreateEntryDTO) {
     const newEntry = new Entry()
 
+    console.log('entry : ', entry)
+
     newEntry.name = entry.name
+    newEntry.level = entry.level
     newEntry.type = entry.type
     newEntry.format = entry.format
+    newEntry.user = await UserService.getUser({id: entry.user_id})
 
     return await this.entryRepository.save(newEntry)
   }
