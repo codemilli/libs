@@ -5,6 +5,7 @@ import {Layout} from "../../src/components/layout/Layout";
 import {PageInit} from "../../src/components/initializer";
 import {EntryType} from "../../shared/interfaces/Entry";
 import {Header} from "../../src/components/Header/Header";
+import {IGetInitialProps} from "../../src/core/interfaces/global";
 
 interface UserHomeProps {
   username: string
@@ -20,7 +21,7 @@ interface UserHomeState {
  * define JoinPage class inherits React.Component
  * @React View Component
  */
-export const UserHome = PageInit(class extends React.Component<UserHomeProps, UserHomeState> {
+export const UserHome = class extends React.Component<UserHomeProps, UserHomeState> {
 
   /**
    * JoinPage class constructor method
@@ -33,15 +34,26 @@ export const UserHome = PageInit(class extends React.Component<UserHomeProps, Us
     this.state = {
       fileSpread: false,
       username: props.username || '',
-      entries: [],
+      entries: props.entries || [],
     }
   }
 
-  async componentDidMount() {
-    const response = await axios.get(`/api/entries/list?level=1&username=${this.state.username}`)
-    this.setState({
-      entries: response.data,
-    })
+  static async getInitialProps({req}: IGetInitialProps) {
+    const isServer = !!req
+    const {username} = req.params
+
+    const response = await axios.get(
+      `${process.env.WEB_URL}/api/entries/list?level=1&username=${username}`
+    )
+    const entries = response.data
+
+    return {
+      isServer,
+      username,
+      entries,
+      API_URL: isServer ? process.env.API_URL : '',
+      WEB_URL: isServer ? process.env.WEB_URL : '',
+    }
   }
 
   onToggle(e) {
@@ -96,4 +108,4 @@ export const UserHome = PageInit(class extends React.Component<UserHomeProps, Us
       </Layout>
     )
   }
-})
+}
