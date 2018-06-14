@@ -54,7 +54,7 @@ export const JoinPage = PageInit(class extends React.Component<JoinPageProps, Jo
       return alert('Correct your password')
     }
 
-    const response = await axios.post('/api/user/join', {
+    const response = await axios.post('/api/users/join', {
       email: emailValue,
       username: usernameValue,
       passwd: passwd1Value,

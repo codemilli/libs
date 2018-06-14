@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from "next/head";
+import axios from 'axios'
 import {Layout} from "../../src/components/layout/Layout";
 import {PageInit} from "../../src/components/initializer";
 
@@ -30,6 +31,11 @@ export const UserHome = PageInit(class extends React.Component<UserHomeProps, Us
       fileSpread: false,
       username: props.username || '',
     }
+  }
+
+  async componentDidMount() {
+    const response = await axios.get(`/api/entries/list?level=1&username=${this.state.username}`)
+    console.log('response : ', response)
   }
 
   onToggle(e) {

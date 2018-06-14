@@ -8,6 +8,12 @@ export interface CreateUserDTO {
   password: string
 }
 
+export interface GetUserOption {
+  id?: number
+  email?: string
+  username?: string
+}
+
 export interface LoginUserDTO {
   username: string
   password: string
@@ -30,6 +36,10 @@ export const UserService = new (class {
     newUser.password = await User.hashing(user.password, newUser.salt)
 
     return await this.userRepository.save(newUser)
+  }
+
+  async getUser(options: GetUserOption) {
+    return this.userRepository.findOne(options)
   }
 
   async getUserLogin(loginUser: LoginUserDTO) {

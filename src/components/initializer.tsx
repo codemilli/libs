@@ -31,12 +31,6 @@ export const PageInit = (UI: ComponentClass | SFC) => {
       return (
         <div className="Main">
           <UI {...this.props} />
-          <style jsx>{`
-            .Main {
-              display: flex;
-              justify-content: center;
-            }
-          `}</style>
         </div>
       )
     }

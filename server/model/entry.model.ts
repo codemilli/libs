@@ -11,6 +11,8 @@ export enum FileFormatType {
   TXT = 'TXT',
   PNG = 'PNG',
   JPG = 'JPG',
+  GIF = 'GIF',
+  LIBSCRIPT = 'LIBSCRIPT',
   ETC = 'ETC',
 }
 
@@ -18,6 +20,9 @@ export enum FileFormatType {
 export class Entry {
   @PrimaryGeneratedColumn()
   id: number
+
+  @Column()
+  name: string
 
   @Column({
     type: 'varchar',
@@ -29,12 +34,20 @@ export class Entry {
     type: 'varchar',
     default: FileFormatType.ETC,
   })
-  file_format: FileFormatType
+  format: FileFormatType
+
+  @Column({
+    nullable: true,
+  })
+  parent_id: number
 
   @Column({
     default: 1
   })
   level: number
+
+  @Column()
+  source: string
 
   @ManyToOne(
     () => User,

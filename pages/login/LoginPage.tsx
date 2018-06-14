@@ -44,7 +44,7 @@ export const LoginPage = PageInit(class extends React.Component<LoginPageProps, 
       return alert('Fill password')
     }
 
-    const response = await axios.post('/api/user/login', {
+    const response = await axios.post('/api/users/login', {
       username: usernameValue,
       passwd: passwdValue,
     })
