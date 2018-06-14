@@ -28,10 +28,17 @@ export const EntryService = new (class {
   async getEntryList(options: EntryListOptions) {
     const user = await UserService.getUser({username: options.username})
 
-    return await this.entryRepository.find({
-      user,
-      level: options.level,
-    })
+    return await this.entryRepository
+      .find({
+        where: {
+          user,
+          level: options.level,
+        },
+        order: {
+          type: 'ASC',
+          name: 'ASC',
+        }
+      })
   }
 
   async createEntry(entry: CreateEntryDTO) {
