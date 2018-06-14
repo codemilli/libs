@@ -60,7 +60,9 @@ export const JoinPage = PageInit(class extends React.Component<JoinPageProps, Jo
       passwd: passwd1Value,
     })
 
-    console.log('response : ', response.data)
+    if (response.data) {
+      location.href = '/login'
+    }
   }
 
   /**

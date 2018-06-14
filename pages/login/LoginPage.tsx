@@ -1,7 +1,7 @@
-import React from 'react'
-import Head from "next/head";
+import React, {FormEvent} from 'react'
 import {Layout} from "../../src/components/layout/Layout";
 import {PageInit} from "../../src/components/initializer";
+import axios from "axios";
 
 interface LoginPageProps {
 }
@@ -23,7 +23,34 @@ export const LoginPage = PageInit(class extends React.Component<LoginPageProps, 
   constructor(props: LoginPageProps) {
     super(props)
 
+    this.onSubmit = this.onSubmit.bind(this)
+
     this.state = {
+    }
+  }
+
+  async onSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+
+    const {username, passwd} = this.refs
+    const usernameValue = ((username as HTMLInputElement).value || '').trim()
+    const passwdValue = ((passwd as HTMLInputElement).value || '').trim()
+
+    if (!usernameValue) {
+      return alert('Fill username')
+    }
+
+    if (!passwdValue) {
+      return alert('Fill password')
+    }
+
+    const response = await axios.post('/api/user/login', {
+      username: usernameValue,
+      passwd: passwdValue,
+    })
+
+    if (response.data) {
+      location.href = `/${response.data.username}`
     }
   }
 
@@ -36,12 +63,39 @@ export const LoginPage = PageInit(class extends React.Component<LoginPageProps, 
 
     return (
       <Layout>
-        <Head>
-        </Head>
+        <div className="LoginPage">
+          <form onSubmit={this.onSubmit}>
+            <input ref="username" type="text" placeholder="Username" required />
+            <input ref="passwd" type="password" placeholder="Password" required />
+            <button type="submit">Login</button>
+          </form>
+        </div>
         <style jsx>{`
-        .LoginPage {
-          max-width: 690px;
-        }
+          .LoginPage {
+            width: 470px;
+            box-shadow: 0px 3px 0px 2px #999;
+            border-radius: 4px;
+
+            form {
+              width: 100%;
+              box-sizing: border-box;
+              display: flex;
+              flex-flow: column;
+              padding: 30px 40px;
+              border: 1px solid black;
+              border-radius: 4px;
+
+              input {
+                height: 24px;
+                border: 1px solid #dddd;
+                border-radius: 4px;
+                margin-bottom: 22px;
+              }
+              button[type='submit'] {
+                font-size: 17px;
+              }
+            }
+          }
       `}</style>
       </Layout>
     )
