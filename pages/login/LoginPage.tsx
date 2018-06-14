@@ -75,6 +75,7 @@ export const LoginPage = PageInit(class extends React.Component<LoginPageProps, 
             width: 470px;
             box-shadow: 0px 3px 0px 2px #999;
             border-radius: 4px;
+            margin: 0 auto;
 
             form {
               width: 100%;

@@ -74,10 +74,10 @@ export const JoinPage = PageInit(class extends React.Component<JoinPageProps, Jo
       <Layout>
         <div className="JoinPage">
           <form onSubmit={this.onSubmit}>
-            <input ref="email" type="email" required />
-            <input ref="username" type="text" required />
-            <input ref="passwd1" type="password" required />
-            <input ref="passwd2" type="password" required />
+            <input ref="email" type="email" placeholder="Email" required />
+            <input ref="username" type="text" placeholder="Username" required />
+            <input ref="passwd1" type="password" placeholder="Password" required />
+            <input ref="passwd2" type="password" placeholder="Confirm password" required />
             <button type="submit">Join</button>
           </form>
         </div>
@@ -86,6 +86,7 @@ export const JoinPage = PageInit(class extends React.Component<JoinPageProps, Jo
             width: 470px;
             box-shadow: 0px 3px 0px 2px #999;
             border-radius: 4px;
+            margin: 0 auto;
 
             form {
               width: 100%;
