@@ -19,6 +19,9 @@ export class User {
   id: number
 
   @Column({unique: true})
+  email: string
+
+  @Column({unique: true})
   username: string
 
   @Column({unique: true})
@@ -52,7 +55,7 @@ export class User {
   deleted_at: string
 
   static async hashing(str, salt): Promise<any> {
-    return await new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       bcrypt.hash(str, salt, (err, hashed) => {
         if (err)
           reject(err)
@@ -63,13 +66,14 @@ export class User {
     })
   }
 
-  static async getSalt(): Promise<any> {
-    return await new Promise((resolve, reject) => {
-      bcrypt.genSalt(10, (err, salt) => {
-        if (err)
-          reject(err)
-        resolve(salt)
+  static async getSalt(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      bcrypt.genSalt(10, (err, salt = '') => {
+        if (err) {
+          return reject(err)
+        }
 
+        resolve(salt)
         return salt
       })
     })
