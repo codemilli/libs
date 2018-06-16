@@ -2,7 +2,6 @@ import React from 'react'
 import Head from "next/head";
 import axios from 'axios'
 import {Layout} from "../../src/components/layout/Layout";
-import {PageInit} from "../../src/components/initializer";
 import {EntryType} from "../../shared/interfaces/Entry";
 import {Header} from "../../src/components/Header/Header";
 import {IGetInitialProps} from "../../src/core/interfaces/global";
