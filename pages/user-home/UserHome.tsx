@@ -5,9 +5,11 @@ import {Layout} from "../../src/components/layout/Layout";
 import {EntryType} from "../../shared/interfaces/Entry";
 import {Header} from "../../src/components/Header/Header";
 import {IGetInitialProps} from "../../src/core/interfaces/global";
+import {Entry} from "../../server/model/entry.model";
 
 interface UserHomeProps {
   username: string
+  entries: Entry[]
 }
 
 interface UserHomeState {
@@ -32,19 +34,19 @@ export const UserHome = class extends React.Component<UserHomeProps, UserHomeSta
 
     this.state = {
       fileSpread: false,
-      username: props.username || '',
-      entries: props.entries || [],
+      username: props.username,
+      entries: props.entries,
     }
   }
 
   static async getInitialProps({req}: IGetInitialProps) {
     const isServer = !!req
-    const {username} = req.params
+    const {username = ''} = req.params
 
     const response = await axios.get(
       `${process.env.WEB_URL}/api/entries/list?level=1&username=${username}`
     )
-    const entries = response.data
+    const entries = response.data || []
 
     return {
       isServer,
