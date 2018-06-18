@@ -23,7 +23,6 @@ export const getList = async (req, res) => {
 
 export const create = async (req, res) => {
   const {user_id, name, level, type, format, file} = req.body
-  console.log('req body : ', req.body)
   let entries
   try {
     entries = await EntryService.createEntry({
